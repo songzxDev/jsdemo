@@ -2,27 +2,37 @@ $(document).ready(function() {
 	$.getJSON('../jsondata/项目.json', function(data) {
 		var options = data.RECORDS;
 		var optionElements = "<option></option>";
-		for (var tag in options) {
-			var project = options[tag];
-			var projectId = project.proj_id;
-			var projectName = project.name;
-			var projectLevel = parseInt(project.depth);
-			if (projectLevel == 1 && projectName.indexOf('已结项目') != -1) break;
-			optionElements = optionElements.concat("<option value='" + projectId + "' data-level='" + projectLevel + "' data-code='" + project.code + "'>" + projectName + "</option>");
+		if (options != null && options.length > 0) {
+			var optionsStr = JSON.stringify(options);
+			for (var tag in options) {
+				var project = options[tag];
+				var projectId = project.proj_id;
+				var projectName = project.name;
+				var projectLevel = parseInt(project.depth);
+				var projectPID = project.parent;
+				if (projectLevel == 1 && projectName.indexOf('已结项目') != -1) break;
+				optionElements = optionElements.concat("<option value='" + projectId + "' data-level='" + projectLevel + "' data-code='" + project.code + "'");
+				if (optionsStr.match("\"parent\":\"" + projectId + "\"") || optionsStr.match("\"parent\":" + projectId)) optionElements = optionElements.concat(" disabled='disabled'");
+				optionElements = optionElements.concat(">" + projectName + "</option>");
+			}
 		}
-		$("select#project").html(optionElements).select2({
+
+		$("select[name='monProject']").html(optionElements).select2({
 			placeholder: '请选择项目',
 			allowClear: true,
 			templateResult: formatState,
-			width: 200
+			width: 'resolve'
 		});
 	});
-	$("select#project").on('select2:select', function(e) {
-		console.log($(this).val() + '-'+ $(this).find(':selected').text());
+	$("select[name='monProject']").on('select2:select', function(e) {
+		console.log($(this).val() + '-' + $(this).find(':selected').text());
 		var data = e.params.data;
 		console.log(data);
 		console.log($(data.element).data('code'));
 	});
+	var tueProject = $("select[name='monProject']").clone(true);
+	console.log(tueProject);
+	$("div[name='projectWeek']").append('<div class="uk-width-1-6"></div>');
 });
 
 
@@ -52,6 +62,5 @@ function formatState(state) {
 			$state = state.text;
 			break;
 	}
-	console.log($state);
 	return $state;
 };
