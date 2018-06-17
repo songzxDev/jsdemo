@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>window对象</title>
+
+</head>
+
+<body id="_body">
+    <h3>window对象</h3>
+    <hr>
+    <p>
+        简而言之，window对象是浏览器窗口对文档提供一个显示的容器，是每一个加载文档的父对象。window对象还是所有其他对象 的顶级对象，通过对window对象的子对象进行操作，可以实现更多的动态效果。window对象代表的是打开的浏览器窗口。通过
+        window对象可以控制窗口的大小和位置、由窗口弹出的对话框、打开窗口与关闭窗口，还可以控制窗口上是否显示地址栏、工具栏、 状态栏等栏目。对于窗口的内容，window对象可以控制是否重载网页、返回上一个文档或前进到下一个文档，甚至于还可以停止
+        加载文档。在框架方面，window对象可以处理框架与框架之间的关系，并通过这种关系在一个框架处理另一个框架的文档。
+    </p>
+    <hr>
+    <input type="text" name="username" onblur="getCharCount(this.value);">
+    <hr>
+    <label id="info">失去焦点时窗口背景变为灰色，得到焦点时为红色。</label>
+    <hr>
+    <p>
+        窗口对象提供两个方法用于调整窗口的大小，分别是resizeTo和resizeBy。其中，resizeBy是相对于当前尺寸调整窗口大小，而resizeTo是把窗口 设置成指定的宽度和高度。当浏览器窗口大小被调整时，将会触发resize事件。可以在处理该事件时进行与窗口尺寸变化相关的操作，比如限制窗口的大小。
+        在body元素里可以通过onresize属性来设置resize事件所调用的函数。例如一个网页，在某个尺寸窗口下浏览可能会达到比较好的效果，那么就可以使用 resize事件来监视用户是否改变了窗口，如果改变的话，就提示用户。
+    </p>
+    <p>
+        <input type="submit" name="submit" value="单击我" onclick="changeSize(10,1000);">
+        <br>
+        <input type="submit" name="submit" value="答题" onclick="question();">
+    </p>
+    <hr>
+    <p>
+        很多情况下需要向网页中的程序输入数据简单的鼠标操作交互显然不能满足，此时可以使用window对象提供的输入对话框，通过该对话框可以输入数据。通过 window的prompt方法即可显示输入对话框
+    </p>
+    <script>
+        function getCharCount(textObj) {
+            if (textObj.length > 10) {
+                window.alert("请重新输入您的姓名（少于10个字符）");
+            } else {
+                window.alert("您输入了：" + textObj.length + "个字符");
+            }
+        }
+
+        function on_focus() {
+            _body.style.background = "red";
+        }
+
+        function on_blur() {
+            _body.style.background = "gray";
+        }
+
+        function changeSize(x, y) {
+            self.resizeBy(x, y);
+            alert("窗口长度和宽度已经改变，您看到了吗？注意还在变哦！");
+            self.resizeTo(y, x);
+        }
+
+        function question() {
+            var result;
+            result = window.prompt("未来世界哪个国家最强大？", "中国");
+            if (result == '中国') {
+                alert('你真聪明！！！');
+            } else {
+                alert('请你再思考一下！');
+            }
+        }
+        (function () {
+            window.defaultStatus = '本站涉及淫秽色情信息，即将被封';
+        })();
+    </script>
+</body>
+
+</html>
