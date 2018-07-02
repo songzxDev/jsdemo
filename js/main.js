@@ -24,6 +24,7 @@ $(document).ready(function() {
                 placeholder: '请选择项目',
                 allowClear: true,
                 templateResult: formatState,
+                matcher: matchCustom,
                 width: 'resolve'
             });
             $current.on('select2:select', function(e) {
@@ -36,8 +37,8 @@ $(document).ready(function() {
             }).on('select2:close', function(e) {
                 console.log('下拉框关闭');
                 $(this).parent().next().find('select:first').select2('open');
-            }).on('focus', function(e){
-            	console.log('获得焦点');
+            }).on('focus', function(e) {
+                console.log('获得焦点');
             });
         }
     });
@@ -72,4 +73,42 @@ function formatState(state) {
             break;
     }
     return $state;
-};
+}
+
+function matchCustom(params, data) {
+    // console.log('>>>>>>>>', params);
+    console.log('>>>>>>>>', data);
+    // If there are no search terms, return all of the data
+    console.log(params.term);
+    if ($.trim(params.term) === '') {
+        return data;
+    }
+
+    // Do not display the item if there is no 'text' property
+    if (typeof data.text === 'undefined') {
+        return null;
+    }
+
+    // `params.term` should be the term that is used for searching
+    // `data.text` is the text that is displayed for the data object
+    if (data.text.indexOf(params.term) > -1 || getPinyinFromZHHans(data.text).indexOf(params.term) > -1){
+        var modifiedData = $.extend({}, data, true);
+        // modifiedData.text += ' (matched)';
+
+        // You can return modified objects from here
+        // This includes matching the `children` how you want in nested data sets
+        return modifiedData;
+    }
+
+    // Return `null` if the term should not be displayed
+    return null;
+}
+
+function getPinyinFromZHHans(str) {
+    if (str == null || str.length <= 0) return "";
+    var pinyin = Utils.CSpell.getSpell(str, function(charactor, spell) {
+        console.log(charactor, spell);
+        return spell[1];
+    });
+    return pinyin.split(',').join('');
+}
