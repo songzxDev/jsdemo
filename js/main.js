@@ -53,7 +53,10 @@ function formatState(state) {
 			break;
 		case 3:
 			$state = $(
-				"<div class='uk-grid uk-text-primary'><div class='uk-push-1-10 uk-width-9-10'><i class='uk-icon-houzz'></i> " + state.text + '</div></div>'
+				"<div class='uk-grid uk-text-primary'><div class='uk-push-1-10 uk-width-9-10 uk-text-small'>"+
+				"<i class='uk-icon-houzz'></i> " 
+				+ state.text + 
+				'</div></div>'
 			);
 			break;
 		case 4:
