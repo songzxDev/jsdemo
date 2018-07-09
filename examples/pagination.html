@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>UIkit分页</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <link rel="stylesheet" href="../plugins/uikit-2.25.0/css/uikit.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    <script src="../plugins/uikit-2.25.0/js/uikit.min.js"></script>
+    <script type="application/javascript" src="../plugins/uikit-2.25.0/js/components/pagination.js"></script>
+    <script type="application/javascript" src="../js/mypagination.js"></script>
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="pagination1">
+        <ul class="uk-pagination" data-target="#pagination" data-uk-pagination="{items:1000, itemsOnPage:10, currentPage:50}">
+            <li><a href="#page-1" data-page="0">1</a></li>
+            <li><span>...</span></li>
+            <li><a href="#page-48" data-page="47">48</a></li>
+            <li><a href="#page-49" data-page="48">49</a></li>
+            <li><a href="#page-50" data-page="49">50</a></li>
+            <li class="uk-active"><span>51</span></li>
+            <li><a href="#page-52" data-page="51">52</a></li>
+            <li><a href="#page-53" data-page="52">53</a></li>
+            <li><a href="#page-54" data-page="53">54</a></li>
+            <li><span>...</span></li>
+            <li><a href="#page-100" data-page="99">100</a></li>
+        </ul>
+    </div>
+    <hr>
+    <div class="uk-grid uk-grid-collapse">
+        <div class="uk-form uk-width-1-10 uk-vertical-align">
+            <div class="uk-vertical-align-middle">数据共【<span class="uk-text-bold uk-text-primary" id="counts">110</span>】条</div>
+        </div>
+        <div class="uk-form uk-width-1-10">
+            <select class="uk-form-small" id="itemsOnPage">
+                <option value="10">每页10条</option>
+                <option value="20" selected="selected">每页20条</option>
+                <option value="30">每页30条</option>
+                <option value="40">每页40条</option>
+                <option value="50">每页50条</option>
+            </select>
+        </div>
+        <div class="uk-width-7-10">
+            <ul class="uk-pagination uk-pagination-left" data-target="#pagination2"></ul>
+        </div>
+    </div>
+    <script type="application/javascript"></script>
+</body>
+
+</html>
